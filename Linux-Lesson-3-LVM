@@ -1,4 +1,4 @@
-Administrator-Linux-Lesson-3-LVM
+Administrator-Linux-Lesson-3-LVM. Part 1.
 
 Диски виртуальной машины:
 root@ubuntu:~# lvmdiskscan
