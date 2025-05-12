@@ -1,6 +1,7 @@
 Administrator-Linux-Lesson-3-LVM. Part 1.
 
 Диски виртуальной машины:
+
 root@ubuntu:~# lvmdiskscan
   /dev/sda2 [       2,00 GiB]
   /dev/sda3 [     <48,00 GiB] LVM physical volume
