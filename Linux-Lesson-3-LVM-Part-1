@@ -96,6 +96,7 @@ old_desc_blocks = 1, new_desc_blocks = 2
 The filesystem on /dev/otus/test is now 2914304 (4k) blocks long.
 
 Работа со снепшотами
+Создание снепшота
 root@ubuntu:~# lvcreate -L 500M -s -n test-snap /dev/otus/test
   Logical volume "test-snap" created.
 
