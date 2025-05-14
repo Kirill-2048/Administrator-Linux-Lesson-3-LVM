@@ -1,6 +1,5 @@
 Linux-Lesson-3-LVM-Part-2
 
-Урок 3. LVM.
 Домашнее задание.
 root@ubuntu:~#
 root@ubuntu:~# pvcreate /dev/sdb
@@ -138,10 +137,9 @@ update-initramfs: Generating /boot/initrd.img-6.13.2-061302-generic
 W: Couldn't identify type of root file system for fsck hook
 root@ubuntu:/#
 
-Не перезагружаемся и не выходим из-под chroot - мы можем заодно перенести /var.
+Без перезагрузки и без выхода из-под chroot - перенос /var.
 
-Выделить том под /var в зеркало
-
+Выделение тома под /var в зеркало
 root@ubuntu:/# pvcreate /dev/sdc /dev/sdd
   Physical volume "/dev/sdc" successfully created.
   Physical volume "/dev/sdd" successfully created.
@@ -171,6 +169,7 @@ cp: cannot create directory '/mnt/opt': No space left on device
 cp: cannot create directory '/mnt/snap': No space left on device
 cp: cannot create directory '/mnt/spool': No space left on device
 cp: cannot create directory '/mnt/tmp': No space left on device
+Недостаточно места
 
 Увеличил размеры дисков sdb, sdc, sdd, sde по 10G
 root@ubuntu:/# pvcreate /dev/sdc /dev/sdd
@@ -218,7 +217,7 @@ root@ubuntu:~# pvremove /dev/sdb
   Labels on physical volume "/dev/sdb" successfully wiped.
 root@ubuntu:~#
 
-Выделить том под /home
+Выделение тома под /home
 root@ubuntu:~# lvcreate -n LogVol_Home -L 2G /dev/ubuntu-vg
   Logical volume "LogVol_Home" created.
 root@ubuntu:~# mkfs.ext4 /dev/ubuntu-vg/LogVol_Home
@@ -259,53 +258,7 @@ root@ubuntu:~# lvconvert --merge /dev/ubuntu-vg/home_snap
   Merging of volume ubuntu-vg/home_snap started.
   ubuntu-vg/LogVol_Home: Merged: 100,00%
 root@ubuntu:~#
-login as: badger
-badger@192.168.1.107's password:
-    ┌──────────────────────────────────────────────────────────────────────┐
-    │                 • MobaXterm Personal Edition v24.2 •                 │
-    │               (SSH client, X server and network tools)               │
-    │                                                                      │
-    │ ⮞ SSH session to badger@192.168.1.107                                │
-    │   • Direct SSH      :  ✓                                             │
-    │   • SSH compression :  ✓                                             │
-    │   • SSH-browser     :  ✓                                             │
-    │   • X11-forwarding  :  ✓  (remote display is forwarded through SSH)  │
-    │                                                                      │
-    │ ⮞ For more info, ctrl+click on help or visit our website.            │
-    └──────────────────────────────────────────────────────────────────────┘
 
-Welcome to Ubuntu 24.04.2 LTS (GNU/Linux 6.13.2-061302-generic x86_64)
-
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/pro
-
- System information as of Ср 09 апр 2025 15:28:18 UTC
-
-  System load:  0.12              Processes:               173
-  Usage of /:   76.1% of 9.25GB   Users logged in:         1
-  Memory usage: 1%                IPv4 address for enp0s3: 192.168.1.107
-  Swap usage:   0%
-
-
-Расширенное поддержание безопасности (ESM) для Applications выключено.
-
-0 обновлений может быть применено немедленно.
-
-Включите ESM Apps для получения дополнительных будущих обновлений безопасности.
-Смотрите https://ubuntu.com/esm или выполните: sudo pro status
-
-
-The list of available updates is more than a week old.
-To check for new updates run: sudo apt update
-
-Last login: Tue Apr  8 16:32:04 2025 from 192.168.1.100
-badger@ubuntu:~$
-badger@ubuntu:~$
-badger@ubuntu:~$
-badger@ubuntu:~$ sudo -i
-[sudo] password for badger:
-root@ubuntu:~#
 root@ubuntu:~# lvcreate -n LogVol_Home -L 2G /dev/ubuntu-vg
   Logical volume "LogVol_Home" created.
 root@ubuntu:~# mkfs.ext4 /dev/ubuntu-vg/LogVol_Home
@@ -337,9 +290,11 @@ root@ubuntu:~# touch /home/file{1..20}
 root@ubuntu:~#
 root@ubuntu:~# lvcreate -L 200MB -s -n home_snap /dev/ubuntu-vg/LogVol_Home
   Logical volume "home_snap" created.
-root@ubuntu:~#
+
+Удаление файлов
 root@ubuntu:~# rm -f /home/file{11..20}
-root@ubuntu:~#
+
+Восстановление файлов
 root@ubuntu:~# umount /home
 root@ubuntu:~# lvconvert --merge /dev/ubuntu-vg/home_snap
   Merging of volume ubuntu-vg/home_snap started.
