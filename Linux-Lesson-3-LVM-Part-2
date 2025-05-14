@@ -1,6 +1,8 @@
 Linux-Lesson-3-LVM-Part-2
 
 Домашнее задание.
+
+Ументшить том до 8G
 root@ubuntu:~#
 root@ubuntu:~# pvcreate /dev/sdb
   Physical volume "/dev/sdb" successfully created.
@@ -21,6 +23,7 @@ Creating journal (16384 blocks): done
 Writing superblocks and filesystem accounting information: done
 root@ubuntu:~# mount /dev/vg_root/lv_root /mnt
 
+Копирование данных с / в /mnt
 root@ubuntu:~# rsync -avxHAX --progress / /mnt/
 …
 sent 8.149.026.674 bytes  received 3.083.393 bytes  158.293.399,36 bytes/sec
@@ -52,7 +55,7 @@ root@ubuntu:/# update-initramfs -u
 update-initramfs: Generating /boot/initrd.img-6.13.2-061302-generic
 root@ubuntu:/#
 root@ubuntu:/# exit
-exit
+
 root@ubuntu:/# reboot
 badger@ubuntu:~$ lsblk
 NAME                      MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
